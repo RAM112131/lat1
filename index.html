@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ketentuan Penggunaan - Amire AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 18px;
+            color: #b0b8cc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .last-updated {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #667eea;
+            font-weight: 500;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+        
+        .section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #e0e6ff;
+            margin: 25px 0 15px 0;
+        }
+        
+        .section p {
+            color: #b0b8cc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .section ul {
+            color: #b0b8cc;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .section li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .highlight p {
+            color: #e0e6ff;
+            margin: 0;
+        }
+        
+        .contact-section {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .contact-section h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        
+        .contact-section p {
+            color: #b0b8cc;
+            margin-bottom: 20px;
+        }
+        
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .back-button {
+                position: static;
+                display: inline-block;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="back-button">← Kembali ke Dashboard</a>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">A</div>
+                <span class="logo-text">Amire Ai</span>
+            </div>
+            <h1>Ketentuan Penggunaan</h1>
+            <p>Syarat dan ketentuan yang mengatur penggunaan platform AI Amire untuk masa depan yang lebih cerdas</p>
+        </div>
+        
+        <div class="content">
+            <div class="last-updated">
+                Terakhir diperbarui: 8 Juni 2025
+            </div>
+            
+            <div class="section">
+                <h2>1. Penerimaan Ketentuan</h2>
+                <p>Dengan mengakses dan menggunakan platform Amire AI, Anda menyetujui untuk terikat oleh ketentuan penggunaan ini. Jika Anda tidak menyetujui ketentuan ini, mohon untuk tidak menggunakan layanan kami.</p>
+                
+                <div class="highlight">
+                    <p><strong>Penting:</strong> Ketentuan ini dapat berubah sewaktu-waktu. Kami akan memberitahu perubahan penting melalui email atau notifikasi dalam platform.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>2. Layanan Amire AI</h2>
+                <p>Amire AI adalah platform kecerdasan buatan yang menyediakan berbagai solusi AI untuk meningkatkan produktivitas, kreativitas, dan inovasi. Layanan kami meliputi:</p>
+                <ul>
+                    <li>Asisten AI untuk berbagai tugas</li>
+                    <li>Analisis data dan insight bisnis</li>
+                    <li>Otomasi proses kerja</li>
+                    <li>Solusi AI kustom untuk kebutuhan spesifik</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>3. Akun Pengguna</h2>
+                <h3>3.1 Registrasi</h3>
+                <p>Untuk menggunakan layanan kami, Anda perlu membuat akun dengan informasi yang akurat dan lengkap. Anda bertanggung jawab untuk menjaga keamanan akun dan kata sandi Anda.</p>
+                
+                <h3>3.2 Tanggung Jawab Pengguna</h3>
+                <p>Pengguna bertanggung jawab untuk:</p>
+                <ul>
+                    <li>Menjaga kerahasiaan informasi login</li>
+                    <li>Menggunakan layanan sesuai dengan hukum yang berlaku</li>
+                    <li>Tidak menyalahgunakan atau merusak sistem</li>
+                    <li>Melaporkan aktivitas mencurigakan</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>4. Penggunaan yang Diizinkan</h2>
+                <p>Anda diizinkan menggunakan Amire AI untuk:</p>
+                <ul>
+                    <li>Keperluan bisnis dan profesional yang sah</li>
+                    <li>Penelitian dan pengembangan</li>
+                    <li>Pendidikan dan pembelajaran</li>
+                    <li>Proyek kreatif dan inovasi</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>5. Penggunaan yang Dilarang</h2>
+                <p>Anda dilarang menggunakan layanan kami untuk:</p>
+                <ul>
+                    <li>Aktivitas ilegal atau melanggar hukum</li>
+                    <li>Menyebarkan konten berbahaya atau ofensif</li>
+                    <li>Melanggar hak kekayaan intelektual</li>
+                    <li>Mengganggu atau merusak sistem</li>
+                    <li>Membuat akun palsu atau menyesatkan</li>
+                </ul>
+                
+                <div class="highlight">
+                    <p><strong>Peringatan:</strong> Pelanggaran terhadap ketentuan ini dapat mengakibatkan penangguhan atau penghapusan akun secara permanen.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>6. Privasi dan Data</h2>
+                <p>Kami menghormati privasi Anda dan berkomitmen untuk melindungi data pribadi. Data yang dikumpulkan akan digunakan untuk:</p>
+                <ul>
+                    <li>Memberikan dan meningkatkan layanan</li>
+                    <li>Personalisasi pengalaman pengguna</li>
+                    <li>Komunikasi terkait layanan</li>
+                    <li>Analisis untuk pengembangan produk</li>
+                </ul>
+                <p>Untuk informasi lengkap, silakan baca Kebijakan Privasi kami.</p>
+            </div>
+            
+            <div class="section">
+                <h2>7. Kekayaan Intelektual</h2>
+                <p>Semua konten, teknologi, dan materi dalam platform Amire AI dilindungi oleh hak kekayaan intelektual. Pengguna tidak diizinkan untuk:</p>
+                <ul>
+                    <li>Menyalin atau mendistribusikan tanpa izin</li>
+                    <li>Merekayasa balik teknologi kami</li>
+                    <li>Menggunakan merek dagang tanpa persetujuan</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>8. Pembatasan Tanggung Jawab</h2>
+                <p>Amire AI tidak bertanggung jawab atas:</p>
+                <ul>
+                    <li>Kerugian tidak langsung akibat penggunaan layanan</li>
+                    <li>Gangguan teknis atau downtime sementara</li>
+                    <li>Keputusan bisnis berdasarkan hasil AI</li>
+                    <li>Kehilangan data akibat kelalaian pengguna</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>9. Penghentian Layanan</h2>
+                <p>Kami berhak menghentikan atau menangguhkan akses Anda jika:</p>
+                <ul>
+                    <li>Terjadi pelanggaran ketentuan penggunaan</li>
+                    <li>Aktivitas mencurigakan atau berbahaya</li>
+                    <li>Permintaan dari otoritas hukum</li>
+                    <li>Alasan teknis atau bisnis lainnya</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>10. Perubahan Ketentuan</h2>
+                <p>Amire AI berhak mengubah ketentuan ini sewaktu-waktu. Perubahan akan diberitahukan melalui:</p>
+                <ul>
+                    <li>Email ke alamat terdaftar</li>
+                    <li>Notifikasi dalam platform</li>
+                    <li>Pengumuman di website resmi</li>
+                </ul>
+            </div>
+            
+            <div class="contact-section">
+                <h3>Butuh Bantuan?</h3>
+                <p>Jika Anda memiliki pertanyaan tentang ketentuan penggunaan ini, jangan ragu untuk menghubungi tim support kami.</p>
+                <a href="#" class="contact-button">
+                    📧 Hubungi Support
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
