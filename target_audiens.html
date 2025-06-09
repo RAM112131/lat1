@@ -405,6 +405,7 @@
             </div>
         </div>
 
+        <!-- Demo Section for Demographic Analysis -->
         <div class="demo-section" id="demoSection" style="display: none;">
             <h2 class="demo-title">🎯 Demo: Analisis Target Audiens Dasar</h2>
             
@@ -486,6 +487,101 @@
             </div>
         </div>
 
+        <!-- Demo Section for Persona Builder -->
+        <div class="demo-section" id="personaSection" style="display: none;">
+            <h2 class="demo-title">👤 Demo: Persona Builder</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 20px;">
+                <!-- Persona Input Form -->
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #667eea;">🔧 Buat Persona Anda</h3>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Nama Persona</label>
+                        <input type="text" class="form-input" placeholder="Contoh: Sarah Millennial" id="personaName">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Usia</label>
+                        <input type="number" class="form-input" placeholder="28" id="personaAge" min="15" max="80">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Pekerjaan</label>
+                        <select class="form-select" id="personaJob">
+                            <option value="">Pilih pekerjaan</option>
+                            <option value="Marketing Manager">Marketing Manager</option>
+                            <option value="Software Developer">Software Developer</option>
+                            <option value="Teacher">Guru/Dosen</option>
+                            <option value="Entrepreneur">Entrepreneur</option>
+                            <option value="Student">Mahasiswa</option>
+                            <option value="Designer">Designer</option>
+                            <option value="Sales">Sales Executive</option>
+                            <option value="Doctor">Dokter/Tenaga Medis</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Pendapatan/Bulan</label>
+                        <select class="form-select" id="personaIncome">
+                            <option value="">Pilih range pendapatan</option>
+                            <option value="< 5 juta">< Rp 5 juta</option>
+                            <option value="5-10 juta">Rp 5-10 juta</option>
+                            <option value="10-20 juta">Rp 10-20 juta</option>
+                            <option value="20-50 juta">Rp 20-50 juta</option>
+                            <option value="> 50 juta">> Rp 50 juta</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Status Keluarga</label>
+                        <select class="form-select" id="personaFamily">
+                            <option value="">Pilih status</option>
+                            <option value="Single">Single</option>
+                            <option value="Menikah tanpa anak">Menikah tanpa anak</option>
+                            <option value="Menikah dengan anak">Menikah dengan anak</option>
+                            <option value="Single parent">Single parent</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Hobi/Minat (pisahkan dengan koma)</label>
+                        <input type="text" class="form-input" placeholder="Yoga, Travelling, Membaca" id="personaHobbies">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Tantangan Utama</label>
+                        <textarea class="form-input" placeholder="Contoh: Sulit mengatur waktu antara karir dan kehidupan pribadi" id="personaChallenges" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Persona Preview -->
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #667eea;">👁️ Preview Persona</h3>
+                    <div id="personaPreview" style="background: rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; min-height: 400px;">
+                        <div style="text-align: center; color: rgba(255,255,255,0.5); padding: 50px 20px;">
+                            <div style="font-size: 48px; margin-bottom: 10px;">👤</div>
+                            <p>Isi form di sebelah kiri untuk melihat preview persona</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="feature-btn" onclick="generatePersona()" style="max-width: 200px;">
+                    Generate Persona
+                </button>
+                <button class="feature-btn" onclick="loadPersonaExample()" style="max-width: 200px; background: rgba(255,255,255,0.1);">
+                    Lihat Contoh
+                </button>
+            </div>
+            
+            <div class="audience-preview" id="personaInsights" style="display: none; margin-top: 20px;">
+                <h4 class="preview-title">💡 Insights & Rekomendasi</h4>
+                <div id="personaInsightResult"></div>
+            </div>
+        </div>
+
         <div class="upgrade-cta">
             <h3>🚀 Unlock Full Potential</h3>
             <p>Dapatkan akses ke analisis mendalam, segmentasi advanced, dan insight prediktif dengan AI terdepan</p>
@@ -495,9 +591,20 @@
 
     <script>
         function showDemo(type) {
-            const demoSection = document.getElementById('demoSection');
-            demoSection.style.display = 'block';
-            demoSection.scrollIntoView({ behavior: 'smooth' });
+            // Hide all sections first
+            document.getElementById('demoSection').style.display = 'none';
+            document.getElementById('personaSection').style.display = 'none';
+            
+            // Show the appropriate section
+            if (type === 'demografis') {
+                const demoSection = document.getElementById('demoSection');
+                demoSection.style.display = 'block';
+                demoSection.scrollIntoView({ behavior: 'smooth' });
+            } else if (type === 'persona') {
+                const personaSection = document.getElementById('personaSection');
+                personaSection.style.display = 'block';
+                personaSection.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function generateAudience() {
@@ -554,6 +661,161 @@
                 `;
             }, 2000);
         }
+
+        function generatePersona() {
+            const name = document.getElementById('personaName').value;
+            const age = document.getElementById('personaAge').value;
+            const job = document.getElementById('personaJob').value;
+            const income = document.getElementById('personaIncome').value;
+            const family = document.getElementById('personaFamily').value;
+            const hobbies = document.getElementById('personaHobbies').value;
+            const challenges = document.getElementById('personaChallenges').value;
+
+            if (!name || !age || !job) {
+                alert('Mohon isi minimal Nama, Usia, dan Pekerjaan untuk generate persona');
+                return;
+            }
+
+            updatePersonaPreview();
+            generatePersonaInsights();
+        }
+
+        function updatePersonaPreview() {
+            const name = document.getElementById('personaName').value || 'Nama Persona';
+            const age = document.getElementById('personaAge').value || '?';
+            const job = document.getElementById('personaJob').value || 'Pekerjaan';
+            const income = document.getElementById('personaIncome').value || 'Tidak ditentukan';
+            const family = document.getElementById('personaFamily').value || 'Tidak ditentukan';
+            const hobbies = document.getElementById('personaHobbies').value || 'Tidak ditentukan';
+            const challenges = document.getElementById('personaChallenges').value || 'Tidak ditentukan';
+
+            const preview = document.getElementById('personaPreview');
+            preview.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 32px;">
+                        👤
+                    </div>
+                    <h3 style="color: #667eea; margin-bottom: 5px;">${name}</h3>
+                    <p style="color: rgba(255,255,255,0.7);">${age} tahun • ${job}</p>
+                </div>
+                
+                <div style="display: grid; gap: 15px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                        <strong style="color: #667eea;">💰 Pendapatan:</strong><br>
+                        <span style="color: rgba(255,255,255,0.8);">${income}</span>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                        <strong style="color: #667eea;">👨‍👩‍👧‍👦 Status Keluarga:</strong><br>
+                        <span style="color: rgba(255,255,255,0.8);">${family}</span>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                        <strong style="color: #667eea;">🎯 Hobi & Minat:</strong><br>
+                        <span style="color: rgba(255,255,255,0.8);">${hobbies}</span>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px;">
+                        <strong style="color: #667eea;">⚡ Tantangan:</strong><br>
+                        <span style="color: rgba(255,255,255,0.8);">${challenges}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function generatePersonaInsights() {
+            const insights = document.getElementById('personaInsights');
+            const result = document.getElementById('personaInsightResult');
+            
+            result.innerHTML = '<p style="text-align: center; opacity: 0.7;">Generating insights...</p>';
+            insights.style.display = 'block';
+            
+            const job = document.getElementById('personaJob').value;
+            const age = document.getElementById('personaAge').value;
+            const income = document.getElementById('personaIncome').value;
+            const hobbies = document.getElementById('personaHobbies').value;
+            
+            setTimeout(() => {
+                result.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(102, 126, 234, 0.3);">
+                            <h4 style="color: #667eea; margin-bottom: 10px;">🎯 Strategi Marketing</h4>
+                            <ul style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                                <li>Platform utama: LinkedIn & Instagram</li>
+                                <li>Konten: Tips karir & lifestyle</li>
+                                <li>Waktu optimal: 07:00-09:00, 18:00-21:00</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(245, 87, 108, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(245, 87, 108, 0.3);">
+                            <h4 style="color: #f5576c; margin-bottom: 10px;">💡 Pain Points</h4>
+                            <ul style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                                <li>Work-life balance</li>
+                                <li>Efisiensi waktu</li>
+                                <li>Investasi & perencanaan keuangan</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(79, 172, 254, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(79, 172, 254, 0.3);">
+                            <h4 style="color: #4facfe; margin-bottom: 10px;">🛍️ Perilaku Pembelian</h4>
+                            <ul style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                                <li>Research online sebelum beli</li>
+                                <li>Prioritas kualitas & value</li>
+                                <li>Tertarik dengan discount & promo</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: rgba(255, 193, 7, 0.1); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.3);">
+                            <h4 style="color: #ffc107; margin-bottom: 10px;">📱 Channel Preference</h4>
+                            <ul style="color: rgba(255,255,255,0.8); line-height: 1.6;">
+                                <li>Email marketing: Efektif</li>
+                                <li>Social media: Instagram Stories</li>
+                                <li>Content: Video pendek & infografis</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 12px;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">🎨 Contoh Messaging</h4>
+                        <div style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid #667eea;">
+                            <strong>"Waktunya upgrade lifestyle tanpa ribet!"</strong><br>
+                            <em style="color: rgba(255,255,255,0.7);">Cocok untuk professional muda yang menghargai efisiensi dan kualitas</em>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 8px;">
+                        <strong>⚠️ Insights Terbatas</strong><br>
+                        <small>Upgrade untuk mendapatkan behavioral analysis mendalam, competitor benchmarking, dan journey mapping.</small>
+                    </div>
+                `;
+            }, 2500);
+        }
+
+        function loadPersonaExample() {
+            // Fill the form with example data
+            document.getElementById('personaName').value = 'Sarah Millennial';
+            document.getElementById('personaAge').value = '28';
+            document.getElementById('personaJob').value = 'Marketing Manager';
+            document.getElementById('personaIncome').value = '10-20 juta';
+            document.getElementById('personaFamily').value = 'Menikah tanpa anak';
+            document.getElementById('personaHobbies').value = 'Yoga, Travelling, Photography, Cafe hopping';
+            document.getElementById('personaChallenges').value = 'Sulit mengatur waktu antara target pekerjaan yang tinggi dan keinginan untuk menjaga kesehatan serta hubungan sosial';
+            
+            // Update preview immediately
+            updatePersonaPreview();
+        }
+
+        // Real-time preview update
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = ['personaName', 'personaAge', 'personaJob', 'personaIncome', 'personaFamily', 'personaHobbies', 'personaChallenges'];
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updatePersonaPreview);
+                    element.addEventListener('change', updatePersonaPreview);
+                }
+            });
+        });
 
         function showUpgradeModal() {
             alert('Fitur upgrade akan tersedia setelah registrasi akun. Daftar sekarang untuk mendapatkan trial 7 hari gratis!');
