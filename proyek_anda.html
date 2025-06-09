@@ -68,94 +68,10 @@
             border-radius: 20px;
             padding: 2rem;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-
-        .limited-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .lock-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 193, 7, 0.2);
-            border: 2px solid #ffc107;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        .limited-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: #ffc107;
-        }
-
-        .limited-text {
-            opacity: 0.9;
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .auth-btn {
-            flex: 1;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn {
-            background: linear-gradient(135deg, #4f94ff 0%, #6366f1 100%);
-            color: white;
-        }
-
-        .register-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .auth-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .demo-link {
-            color: #4f94ff;
-            text-decoration: underline;
-            cursor: pointer;
-            margin-top: 1rem;
-            display: inline-block;
         }
 
         .input-group {
             margin-bottom: 1.5rem;
-            position: relative;
         }
 
         .input-label {
@@ -190,11 +106,6 @@
         .textarea-field {
             min-height: 100px;
             resize: vertical;
-        }
-
-        .limited-input {
-            filter: blur(2px);
-            pointer-events: none;
         }
 
         .tags {
@@ -262,26 +173,6 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        .demo-mode {
-            background: rgba(255, 193, 7, 0.1);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .demo-badge {
-            background: #ffc107;
-            color: #000;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
         @media (max-width: 600px) {
             .container {
                 padding: 1rem;
@@ -298,10 +189,6 @@
             .back-btn {
                 top: 1rem;
                 left: 1rem;
-            }
-
-            .auth-buttons {
-                flex-direction: column;
             }
         }
     </style>
@@ -321,174 +208,60 @@
         </div>
 
         <div class="form-card">
-            <!-- Limited Access Overlay -->
-            <div class="limited-overlay" id="limitedOverlay">
-                <div class="lock-icon">
-                    <svg width="24" height="24" fill="#ffc107" viewBox="0 0 24 24">
-                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/>
-                    </svg>
-                </div>
-                <h3 class="limited-title">Fitur Terbatas</h3>
-                <p class="limited-text">
-                    Untuk menggunakan semua fitur AI dan mendapatkan analisis lengkap, silakan masuk atau daftar terlebih dahulu.
-                </p>
-                <div class="auth-buttons">
-                    <button class="auth-btn login-btn" onclick="showLogin()">Masuk</button>
-                    <button class="auth-btn register-btn" onclick="showRegister()">Daftar</button>
-                </div>
-                <a class="demo-link" onclick="tryDemo()">Coba mode demo terbatas</a>
-            </div>
-
-            <!-- Demo Mode Banner (hidden by default) -->
-            <div class="demo-mode" id="demoMode" style="display: none;">
-                <div class="demo-badge">MODE DEMO</div>
-                <p style="font-size: 0.9rem; opacity: 0.8;">
-                    Anda menggunakan versi terbatas. <strong>Daftar gratis</strong> untuk fitur lengkap!
-                </p>
-            </div>
-
             <form id="projectForm">
                 <div class="input-group">
                     <label class="input-label">Nama Proyek</label>
-                    <input type="text" class="input-field limited-input" placeholder="Website toko online saya" maxlength="20">
-                    <small style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Maksimal 20 karakter dalam demo</small>
+                    <input type="text" class="input-field" placeholder="Website toko online saya" required>
                 </div>
 
                 <div class="input-group">
                     <label class="input-label">Ceritakan proyek Anda</label>
-                    <textarea class="input-field textarea-field limited-input" placeholder="Saya ingin membuat website untuk menjual produk handmade..." maxlength="100"></textarea>
-                    <small style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">Maksimal 100 karakter dalam demo</small>
+                    <textarea class="input-field textarea-field" placeholder="Saya ingin membuat website untuk menjual produk handmade. Target customernya adalah anak muda yang suka barang unik..." required></textarea>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">Pilih yang sesuai (maks 2 dalam demo)</label>
+                    <label class="input-label">Pilih yang sesuai (opsional)</label>
                     <div class="tags">
                         <span class="tag" onclick="toggleTag(this)">🎨 Kreatif</span>
                         <span class="tag" onclick="toggleTag(this)">💼 Bisnis</span>
                         <span class="tag" onclick="toggleTag(this)">📱 Mobile</span>
                         <span class="tag" onclick="toggleTag(this)">🌐 Website</span>
-                        <span class="tag disabled-tag">✨ Modern</span>
-                        <span class="tag disabled-tag">🎯 Simple</span>
+                        <span class="tag" onclick="toggleTag(this)">✨ Modern</span>
+                        <span class="tag" onclick="toggleTag(this)">🎯 Simple</span>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn" disabled>
-                    🔒 Analisis Terbatas
+                <button type="submit" class="submit-btn">
+                    ✨ Analisis dengan AI
                 </button>
             </form>
         </div>
     </div>
 
     <script>
-        let isLoggedIn = false;
-        let isDemoMode = false;
-        let selectedTags = 0;
-
         function goBack() {
             window.history.back();
         }
 
-        function showLogin() {
-            alert('Fitur login akan segera hadir! 🚀');
-        }
-
-        function showRegister() {
-            alert('Fitur registrasi akan segera hadir! ✨');
-        }
-
-        function tryDemo() {
-            isDemoMode = true;
-            document.getElementById('limitedOverlay').style.display = 'none';
-            document.getElementById('demoMode').style.display = 'block';
-            
-            // Enable limited inputs
-            const inputs = document.querySelectorAll('.limited-input');
-            inputs.forEach(input => {
-                input.classList.remove('limited-input');
-                input.removeAttribute('disabled');
-            });
-
-            // Enable submit button with limited text
-            const submitBtn = document.querySelector('.submit-btn');
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '🔒 Analisis Demo (Terbatas)';
-
-            // Add demo restrictions
-            addDemoRestrictions();
-        }
-
-        function addDemoRestrictions() {
-            // Limit character count
-            const nameInput = document.querySelector('input[type="text"]');
-            const textArea = document.querySelector('textarea');
-            
-            nameInput.addEventListener('input', function() {
-                if (this.value.length > 20) {
-                    this.value = this.value.substring(0, 20);
-                }
-            });
-
-            textArea.addEventListener('input', function() {
-                if (this.value.length > 100) {
-                    this.value = this.value.substring(0, 100);
-                }
-            });
-        }
-
         function toggleTag(tag) {
-            if (tag.classList.contains('disabled-tag')) {
-                alert('Tag ini hanya tersedia untuk pengguna terdaftar! 🔐');
-                return;
-            }
-
-            if (isDemoMode && !tag.classList.contains('active') && selectedTags >= 2) {
-                alert('Mode demo hanya bisa memilih maksimal 2 tag! 🏷️');
-                return;
-            }
-
             tag.classList.toggle('active');
-            
-            if (tag.classList.contains('active')) {
-                selectedTags++;
-            } else {
-                selectedTags--;
-            }
         }
 
         document.getElementById('projectForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            if (!isDemoMode) {
-                alert('Silakan login terlebih dahulu!');
-                return;
-            }
-
             const submitBtn = document.querySelector('.submit-btn');
             const originalText = submitBtn.innerHTML;
             
-            submitBtn.innerHTML = '🤖 Menganalisis... (Demo)';
+            submitBtn.innerHTML = '🤖 Sedang menganalisis...';
             submitBtn.disabled = true;
 
             setTimeout(() => {
-                alert('Analisis demo selesai! ✨\n\nHasil terbatas:\n- 3 saran desain basic\n- Template sederhana\n- Analisis singkat\n\nDaftar untuk hasil lengkap! 🚀');
+                alert('Analisis selesai! AI akan memberikan rekomendasi terbaik untuk proyek Anda 🚀');
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }, 2000);
         });
-
-        // Add CSS for disabled tags
-        const style = document.createElement('style');
-        style.textContent = `
-            .disabled-tag {
-                opacity: 0.5;
-                cursor: not-allowed !important;
-            }
-            .disabled-tag:hover {
-                background: rgba(79, 148, 255, 0.2) !important;
-                transform: none !important;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
