@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Audiens - Amire AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .mode-badge {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid #ffc107;
+            color: #ffc107;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .demo-banner {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.1));
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .demo-banner h3 {
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+
+        .demo-banner p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.1);
+        }
+
+        .feature-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .feature-card.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 18px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .feature-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .feature-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .audience-builder {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .audience-preview {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .preview-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .upgrade-cta {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .upgrade-cta h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-cta p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .upgrade-btn {
+            background: white;
+            color: #ee5a24;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .audience-builder {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-shape" style="width: 100px; height: 100px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 50%;"></div>
+        <div class="floating-shape" style="width: 80px; height: 80px; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 20px;"></div>
+        <div class="floating-shape" style="width: 120px; height: 120px; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 50%;"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">AI</div>
+                <span style="font-size: 1.5rem; font-weight: 700;">Amire AI</span>
+            </div>
+            <div class="mode-badge">Mode Tamu</div>
+        </header>
+
+        <div class="page-header">
+            <h1 class="page-title">Target Audiens</h1>
+            <p class="page-subtitle">Identifikasi dan analisis target audiens yang tepat untuk strategi pemasaran yang lebih efektif</p>
+        </div>
+
+        <div class="demo-banner">
+            <h3>🎯 Mode Demo Terbatas</h3>
+            <p>Anda sedang menggunakan versi demo dengan fitur terbatas. Upgrade untuk akses penuh ke semua fitur analisis audiens.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3 class="feature-title">Analisis Demografis</h3>
+                <p class="feature-desc">Analisis dasar karakteristik demografis target audiens Anda seperti usia, gender, dan lokasi.</p>
+                <button class="feature-btn" onclick="showDemo('demografis')">Coba Sekarang</button>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Persona Builder</h3>
+                <p class="feature-desc">Buat persona sederhana untuk memahami karakteristik dasar target audiens Anda.</p>
+                <button class="feature-btn" onclick="showDemo('persona')">Buat Persona</button>
+            </div>
+
+            <div class="feature-card locked">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Analisis Perilaku</h3>
+                <p class="feature-desc">Analisis mendalam perilaku konsumen, pola pembelian, dan preferensi produk.</p>
+                <button class="feature-btn" disabled>Perlu Upgrade</button>
+            </div>
+
+            <div class="feature-card locked">
+                <div class="feature-icon">💡</div>
+                <h3 class="feature-title">Insight Prediktif</h3>
+                <p class="feature-desc">Prediksi tren dan perilaku audiens masa depan dengan AI advanced.</p>
+                <button class="feature-btn" disabled>Perlu Upgrade</button>
+            </div>
+
+            <div class="feature-card locked">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">Segmentasi Lanjutan</h3>
+                <p class="feature-desc">Segmentasi audiens berdasarkan multiple kriteria dengan algoritma machine learning.</p>
+                <button class="feature-btn" disabled>Perlu Upgrade</button>
+            </div>
+
+            <div class="feature-card locked">
+                <div class="feature-icon">📈</div>
+                <h3 class="feature-title">Laporan Komprehensif</h3>
+                <p class="feature-desc">Laporan detail dengan visualisasi data dan rekomendasi strategis.</p>
+                <button class="feature-btn" disabled>Perlu Upgrade</button>
+            </div>
+        </div>
+
+        <div class="demo-section" id="demoSection" style="display: none;">
+            <h2 class="demo-title">🎯 Demo: Analisis Target Audiens Dasar</h2>
+            
+            <div class="audience-builder">
+                <div>
+                    <div class="input-group">
+                        <label class="input-label">Produk/Layanan</label>
+                        <input type="text" class="form-input" placeholder="Contoh: Aplikasi Fitness" id="productInput">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Rentang Usia</label>
+                        <select class="form-select" id="ageRange">
+                            <option value="">Pilih rentang usia</option>
+                            <option value="18-25">18-25 tahun</option>
+                            <option value="26-35">26-35 tahun</option>
+                            <option value="36-45">36-45 tahun</option>
+                            <option value="46-55">46-55 tahun</option>
+                            <option value="55+">55+ tahun</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Gender</label>
+                        <select class="form-select" id="gender">
+                            <option value="">Pilih gender</option>
+                            <option value="Pria">Pria</option>
+                            <option value="Wanita">Wanita</option>
+                            <option value="Semua">Semua Gender</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="input-group">
+                        <label class="input-label">Lokasi</label>
+                        <select class="form-select" id="location">
+                            <option value="">Pilih lokasi</option>
+                            <option value="Jakarta">Jakarta</option>
+                            <option value="Surabaya">Surabaya</option>
+                            <option value="Bandung">Bandung</option>
+                            <option value="Medan">Medan</option>
+                            <option value="Nasional">Seluruh Indonesia</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Minat Utama</label>
+                        <select class="form-select" id="interest">
+                            <option value="">Pilih minat</option>
+                            <option value="Kesehatan & Fitness">Kesehatan & Fitness</option>
+                            <option value="Teknologi">Teknologi</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Makanan">Makanan</option>
+                            <option value="Travel">Travel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Budget Range</label>
+                        <select class="form-select" id="budget">
+                            <option value="">Pilih budget</option>
+                            <option value="< 500rb">< Rp 500.000</option>
+                            <option value="500rb - 1jt">Rp 500.000 - 1.000.000</option>
+                            <option value="1jt - 5jt">Rp 1.000.000 - 5.000.000</option>
+                            <option value="> 5jt">> Rp 5.000.000</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="feature-btn" onclick="generateAudience()" style="max-width: 200px; margin: 0 auto; display: block;">
+                Generate Analisis
+            </button>
+            
+            <div class="audience-preview" id="audiencePreview" style="display: none;">
+                <h4 class="preview-title">📋 Hasil Analisis Dasar</h4>
+                <div id="analysisResult"></div>
+            </div>
+        </div>
+
+        <div class="upgrade-cta">
+            <h3>🚀 Unlock Full Potential</h3>
+            <p>Dapatkan akses ke analisis mendalam, segmentasi advanced, dan insight prediktif dengan AI terdepan</p>
+            <button class="upgrade-btn" onclick="showUpgradeModal()">Upgrade Sekarang</button>
+        </div>
+    </div>
+
+    <script>
+        function showDemo(type) {
+            const demoSection = document.getElementById('demoSection');
+            demoSection.style.display = 'block';
+            demoSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function generateAudience() {
+            const product = document.getElementById('productInput').value;
+            const age = document.getElementById('ageRange').value;
+            const gender = document.getElementById('gender').value;
+            const location = document.getElementById('location').value;
+            const interest = document.getElementById('interest').value;
+            const budget = document.getElementById('budget').value;
+
+            if (!product || !age || !gender || !location) {
+                alert('Mohon lengkapi semua field utama untuk generate analisis');
+                return;
+            }
+
+            const preview = document.getElementById('audiencePreview');
+            const result = document.getElementById('analysisResult');
+            
+            // Simulate loading
+            result.innerHTML = '<p style="text-align: center; opacity: 0.7;">Generating analisis...</p>';
+            preview.style.display = 'block';
+            
+            setTimeout(() => {
+                result.innerHTML = `
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>🎯 Target Primer</strong><br>
+                            ${gender} usia ${age}<br>
+                            Lokasi: ${location}
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>💰 Segmen Budget</strong><br>
+                            ${budget || 'Tidak ditentukan'}<br>
+                            Daya beli: Menengah
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                            <strong>❤️ Minat Utama</strong><br>
+                            ${interest || 'General'}<br>
+                            Engagement: Tinggi
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(102, 126, 234, 0.1); border-radius: 8px;">
+                        <strong>💡 Rekomendasi Dasar:</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>Fokus konten pada ${interest?.toLowerCase() || 'minat umum'}</li>
+                            <li>Target waktu aktif: 19:00-22:00 WIB</li>
+                            <li>Platform utama: Instagram, TikTok</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 8px;">
+                        <strong>⚠️ Analisis Terbatas</strong><br>
+                        <small>Upgrade untuk mendapatkan insight mendalam, analisis kompetitor, dan prediksi tren.</small>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        function showUpgradeModal() {
+            alert('Fitur upgrade akan tersedia setelah registrasi akun. Daftar sekarang untuk mendapatkan trial 7 hari gratis!');
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
