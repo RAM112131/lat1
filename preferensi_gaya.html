@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferensi Gaya - Amitre AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            top: 60%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #fa709a, #fee140);
+            border-radius: 30%;
+            animation-delay: 5s;
+        }
+
+        .shape-3 {
+            bottom: 20%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            border-radius: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(90deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+            75% { transform: translateY(-30px) rotate(270deg); }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 10px 0;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-2px);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            flex: 1;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-spacer {
+            width: 44px;
+        }
+
+        /* Content Sections */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #e0e6ed;
+        }
+
+        /* Style Cards */
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .style-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .style-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .style-card:hover::before {
+            opacity: 1;
+        }
+
+        .style-card.active {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.15);
+            transform: scale(1.02);
+        }
+
+        .style-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .style-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .style-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #e0e6ed;
+            position: relative;
+            z-index: 1;
+        }
+
+        .style-desc {
+            font-size: 12px;
+            color: #a0a6ad;
+            margin-top: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tone Options */
+        .tone-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .tone-option {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tone-option:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .tone-option.active {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.15);
+        }
+
+        .tone-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4facfe;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .tone-option.active .tone-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #4facfe;
+            border-radius: 50%;
+        }
+
+        .tone-info {
+            flex: 1;
+        }
+
+        .tone-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #e0e6ed;
+            margin-bottom: 4px;
+        }
+
+        .tone-desc {
+            font-size: 14px;
+            color: #a0a6ad;
+            line-height: 1.4;
+        }
+
+        /* Sliders */
+        .slider-section {
+            margin-bottom: 30px;
+        }
+
+        .slider-item {
+            margin-bottom: 25px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .slider-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #e0e6ed;
+        }
+
+        .slider-value {
+            font-size: 14px;
+            color: #4facfe;
+            font-weight: 600;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(79, 172, 254, 0.4);
+        }
+
+        /* Save Button */
+        .save-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .save-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .save-btn:hover::before {
+            left: 100%;
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+        }
+
+        .save-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="goBack()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <h1>Preferensi Gaya</h1>
+            <div class="header-spacer"></div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Gaya Komunikasi</h2>
+            <div class="style-grid">
+                <div class="style-card active" onclick="selectStyle(this)">
+                    <span class="style-icon">💼</span>
+                    <div class="style-name">Profesional</div>
+                    <div class="style-desc">Formal dan terstruktur</div>
+                </div>
+                <div class="style-card" onclick="selectStyle(this)">
+                    <span class="style-icon">😊</span>
+                    <div class="style-name">Ramah</div>
+                    <div class="style-desc">Hangat dan bersahabat</div>
+                </div>
+                <div class="style-card" onclick="selectStyle(this)">
+                    <span class="style-icon">🎯</span>
+                    <div class="style-name">Langsung</div>
+                    <div class="style-desc">Singkat dan to the point</div>
+                </div>
+                <div class="style-card" onclick="selectStyle(this)">
+                    <span class="style-icon">🎨</span>
+                    <div class="style-name">Kreatif</div>
+                    <div class="style-desc">Inovatif dan out of the box</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Tone Komunikasi</h2>
+            <div class="tone-options">
+                <div class="tone-option active" onclick="selectTone(this)">
+                    <div class="tone-radio"></div>
+                    <div class="tone-info">
+                        <div class="tone-name">Antusias</div>
+                        <div class="tone-desc">Penuh semangat dan energik dalam merespons</div>
+                    </div>
+                </div>
+                <div class="tone-option" onclick="selectTone(this)">
+                    <div class="tone-radio"></div>
+                    <div class="tone-info">
+                        <div class="tone-name">Tenang</div>
+                        <div class="tone-desc">Santai dan tidak terburu-buru</div>
+                    </div>
+                </div>
+                <div class="tone-option" onclick="selectTone(this)">
+                    <div class="tone-radio"></div>
+                    <div class="tone-info">
+                        <div class="tone-name">Empati</div>
+                        <div class="tone-desc">Memahami dan peduli terhadap perasaan</div>
+                    </div>
+                </div>
+                <div class="tone-option" onclick="selectTone(this)">
+                    <div class="tone-radio"></div>
+                    <div class="tone-info">
+                        <div class="tone-name">Analitis</div>
+                        <div class="tone-desc">Logis dan berbasis data</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section slider-section">
+            <h2 class="section-title">Pengaturan Detail</h2>
+            
+            <div class="slider-item">
+                <div class="slider-label">
+                    <span class="slider-name">Panjang Respons</span>
+                    <span class="slider-value" id="lengthValue">Medium</span>
+                </div>
+                <input type="range" class="slider" min="1" max="3" value="2" id="lengthSlider" oninput="updateSlider('length', this.value)">
+            </div>
+
+            <div class="slider-item">
+                <div class="slider-label">
+                    <span class="slider-name">Tingkat Detail</span>
+                    <span class="slider-value" id="detailValue">Medium</span>
+                </div>
+                <input type="range" class="slider" min="1" max="3" value="2" id="detailSlider" oninput="updateSlider('detail', this.value)">
+            </div>
+
+            <div class="slider-item">
+                <div class="slider-label">
+                    <span class="slider-name">Formalitas</span>
+                    <span class="slider-value" id="formalityValue">Medium</span>
+                </div>
+                <input type="range" class="slider" min="1" max="3" value="2" id="formalitySlider" oninput="updateSlider('formality', this.value)">
+            </div>
+        </div>
+
+        <button class="save-btn" onclick="savePreferences()">
+            Simpan Preferensi
+        </button>
+    </div>
+
+    <script>
+        function goBack() {
+            // Animasi untuk kembali
+            document.body.style.transform = 'translateX(100%)';
+            document.body.style.transition = 'transform 0.3s ease';
+            setTimeout(() => {
+                // Simulasi navigasi kembali
+                console.log('Navigasi kembali ke halaman utama');
+            }, 300);
+        }
+
+        function selectStyle(element) {
+            // Hapus class active dari semua style cards
+            document.querySelectorAll('.style-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Tambah class active ke card yang dipilih
+            element.classList.add('active');
+            
+            // Animasi selection
+            element.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1.02)';
+            }, 100);
+        }
+
+        function selectTone(element) {
+            // Hapus class active dari semua tone options
+            document.querySelectorAll('.tone-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Tambah class active ke option yang dipilih
+            element.classList.add('active');
+            
+            // Animasi selection
+            element.style.transform = 'translateX(8px)';
+            setTimeout(() => {
+                element.style.transform = 'translateX(4px)';
+            }, 200);
+        }
+
+        function updateSlider(type, value) {
+            const labels = ['Low', 'Medium', 'High'];
+            const labelMap = {
+                '1': 'Rendah',
+                '2': 'Medium',
+                '3': 'Tinggi'
+            };
+            
+            const valueElement = document.getElementById(type + 'Value');
+            valueElement.textContent = labelMap[value];
+            
+            // Animasi nilai berubah
+            valueElement.style.transform = 'scale(1.2)';
+            valueElement.style.color = '#00f2fe';
+            setTimeout(() => {
+                valueElement.style.transform = 'scale(1)';
+                valueElement.style.color = '#4facfe';
+            }, 200);
+        }
+
+        function savePreferences() {
+            const saveBtn = document.querySelector('.save-btn');
+            const originalText = saveBtn.textContent;
+            
+            // Animasi loading
+            saveBtn.textContent = 'Menyimpan...';
+            saveBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+            
+            // Simulasi proses simpan
+            setTimeout(() => {
+                saveBtn.textContent = '✓ Tersimpan';
+                saveBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                
+                setTimeout(() => {
+                    saveBtn.textContent = originalText;
+                    saveBtn.style.background = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+                }, 2000);
+            }, 1000);
+        }
+
+        // Inisialisasi animasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animasi fade-in untuk elemen
+            const elements = document.querySelectorAll('.section');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
