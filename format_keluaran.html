@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Format Keluaran - Amire AI (Mode Tamu)</title>
+    <title>Format Keluaran - Amire AI</title>
     <style>
         * {
             margin: 0;
@@ -123,26 +123,18 @@
         }
 
         .mode-toggle {
-            background: linear-gradient(45deg, #FFA726, #FF7043);
-            border: 1px solid rgba(255, 167, 38, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mode-toggle::before {
-            content: '👤 ';
-            font-size: 14px;
         }
 
         .mode-toggle:hover {
-            background: linear-gradient(45deg, #FF7043, #FFA726);
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 167, 38, 0.4);
         }
 
         .user-icon, .settings-icon {
@@ -155,53 +147,11 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            opacity: 0.6;
         }
 
         .user-icon:hover, .settings-icon:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
-            opacity: 1;
-        }
-
-        /* Guest Banner */
-        .guest-banner {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            padding: 15px 30px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.9; }
-        }
-
-        .guest-banner p {
-            margin: 0;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .upgrade-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-size: 12px;
-            transition: all 0.3s ease;
-            margin-left: 15px;
-        }
-
-        .upgrade-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
         }
 
         /* Main Content */
@@ -282,37 +232,6 @@
             overflow: hidden;
         }
 
-        .format-card.limited {
-            opacity: 0.6;
-            position: relative;
-        }
-
-        .format-card.limited::after {
-            content: '🔒 Premium';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .format-card.free::after {
-            content: '✅ Gratis';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
         .format-card::before {
             content: '';
             position: absolute;
@@ -324,20 +243,15 @@
             transition: left 0.5s ease;
         }
 
-        .format-card:not(.limited):hover::before {
+        .format-card:hover::before {
             left: 100%;
         }
 
-        .format-card:not(.limited):hover {
+        .format-card:hover {
             transform: translateY(-10px);
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(102, 126, 234, 0.5);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .format-card.limited:hover {
-            transform: scale(1.02);
-            border-color: rgba(255, 107, 107, 0.5);
         }
 
         .format-icon {
@@ -382,51 +296,7 @@
             margin-right: 8px;
         }
 
-        .format-card.limited .format-features li::before {
-            content: '🔒';
-            margin-right: 8px;
-        }
-
-        /* Guest Limitations Notice */
-        .guest-notice {
-            background: linear-gradient(45deg, rgba(255, 107, 107, 0.2), rgba(255, 142, 83, 0.2));
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            border-radius: 20px;
-            padding: 25px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .guest-notice h3 {
-            color: #FFB74D;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .guest-notice p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .guest-notice ul {
-            text-align: left;
-            max-width: 400px;
-            margin: 0 auto 20px;
-            list-style: none;
-        }
-
-        .guest-notice li {
-            padding: 5px 0;
-            opacity: 0.9;
-        }
-
-        .guest-notice li::before {
-            content: '❌';
-            margin-right: 10px;
-        }
-
-        /* Custom Settings - Limited */
+        /* Custom Settings */
         .custom-settings {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -434,22 +304,6 @@
             border-radius: 20px;
             padding: 30px;
             margin-top: 30px;
-            opacity: 0.7;
-            position: relative;
-        }
-
-        .custom-settings::before {
-            content: '🔒 Pengaturan Terbatas untuk Mode Tamu';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
         }
 
         .custom-settings h3 {
@@ -482,11 +336,6 @@
             padding: 12px;
             border-radius: 10px;
             font-size: 14px;
-        }
-
-        select:disabled, input:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
 
         select option {
@@ -536,16 +385,6 @@
             transform: translateY(-3px);
         }
 
-        .btn-upgrade {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-            color: white;
-        }
-
-        .btn-upgrade:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .header {
@@ -567,16 +406,6 @@
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
-            }
-
-            .guest-banner {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-
-            .upgrade-btn {
-                margin-left: 10px;
-                padding: 6px 12px;
             }
         }
     </style>
@@ -603,13 +432,6 @@
         </div>
     </header>
 
-    <div class="guest-banner">
-        <p>
-            🎭 Anda sedang menggunakan Mode Tamu - Akses terbatas
-            <a href="javascript:void(0)" class="upgrade-btn" onclick="showUpgrade()">✨ Upgrade Sekarang</a>
-        </p>
-    </div>
-
     <main class="main-content">
         <button class="back-btn" onclick="goBack()">
             ← Kembali
@@ -617,11 +439,53 @@
 
         <div class="page-title">
             <h1>Format Keluaran</h1>
-            <p>Pilih format output yang tersedia dalam Mode Tamu. Upgrade untuk membuka semua fitur premium.</p>
+            <p>Pilih format output yang sesuai dengan kebutuhan Anda. Setiap format memiliki karakteristik dan penggunaan yang berbeda.</p>
         </div>
 
         <div class="format-grid">
-            <div class="format-card free" onclick="selectFormat('txt')">
+            <div class="format-card" onclick="selectFormat('pdf')">
+                <div class="format-icon" style="background: linear-gradient(45deg, #FF6B6B, #FF8E53);">
+                    📄
+                </div>
+                <h3>PDF Document</h3>
+                <p>Format dokumen yang dapat dibaca di semua perangkat dengan layout yang konsisten.</p>
+                <ul class="format-features">
+                    <li>Layout tetap terjaga</li>
+                    <li>Dapat dicetak dengan mudah</li>
+                    <li>Kompatibel universal</li>
+                    <li>Ukuran file relatif kecil</li>
+                </ul>
+            </div>
+
+            <div class="format-card" onclick="selectFormat('docx')">
+                <div class="format-icon" style="background: linear-gradient(45deg, #4ECDC4, #44A08D);">
+                    📝
+                </div>
+                <h3>Word Document</h3>
+                <p>Format yang dapat diedit dan dimodifikasi sesuai kebutuhan Anda.</p>
+                <ul class="format-features">
+                    <li>Dapat diedit langsung</li>
+                    <li>Mendukung formatting lengkap</li>
+                    <li>Integrasi dengan Office</li>
+                    <li>Kolaborasi real-time</li>
+                </ul>
+            </div>
+
+            <div class="format-card" onclick="selectFormat('html')">
+                <div class="format-icon" style="background: linear-gradient(45deg, #667eea, #764ba2);">
+                    🌐
+                </div>
+                <h3>HTML Web Page</h3>
+                <p>Format web yang dapat dibuka di browser dengan styling yang menarik.</p>
+                <ul class="format-features">
+                    <li>Interaktif dan responsif</li>
+                    <li>Styling CSS kustom</li>
+                    <li>Dapat dibuka di browser</li>
+                    <li>Mendukung multimedia</li>
+                </ul>
+            </div>
+
+            <div class="format-card" onclick="selectFormat('txt')">
                 <div class="format-icon" style="background: linear-gradient(45deg, #FFA726, #FF7043);">
                     📋
                 </div>
@@ -635,50 +499,8 @@
                 </ul>
             </div>
 
-            <div class="format-card limited" onclick="showPremiumAlert('PDF')">
-                <div class="format-icon" style="background: linear-gradient(45deg, #FF6B6B, #FF8E53); opacity: 0.6;">
-                    📄
-                </div>
-                <h3>PDF Document</h3>
-                <p>Format dokumen yang dapat dibaca di semua perangkat dengan layout yang konsisten.</p>
-                <ul class="format-features">
-                    <li>Layout tetap terjaga</li>
-                    <li>Dapat dicetak dengan mudah</li>
-                    <li>Kompatibel universal</li>
-                    <li>Ukuran file relatif kecil</li>
-                </ul>
-            </div>
-
-            <div class="format-card limited" onclick="showPremiumAlert('Word')">
-                <div class="format-icon" style="background: linear-gradient(45deg, #4ECDC4, #44A08D); opacity: 0.6;">
-                    📝
-                </div>
-                <h3>Word Document</h3>
-                <p>Format yang dapat diedit dan dimodifikasi sesuai kebutuhan Anda.</p>
-                <ul class="format-features">
-                    <li>Dapat diedit langsung</li>
-                    <li>Mendukung formatting lengkap</li>
-                    <li>Integrasi dengan Office</li>
-                    <li>Kolaborasi real-time</li>
-                </ul>
-            </div>
-
-            <div class="format-card limited" onclick="showPremiumAlert('HTML')">
-                <div class="format-icon" style="background: linear-gradient(45deg, #667eea, #764ba2); opacity: 0.6;">
-                    🌐
-                </div>
-                <h3>HTML Web Page</h3>
-                <p>Format web yang dapat dibuka di browser dengan styling yang menarik.</p>
-                <ul class="format-features">
-                    <li>Interaktif dan responsif</li>
-                    <li>Styling CSS kustom</li>
-                    <li>Dapat dibuka di browser</li>
-                    <li>Mendukung multimedia</li>
-                </ul>
-            </div>
-
-            <div class="format-card limited" onclick="showPremiumAlert('JSON')">
-                <div class="format-icon" style="background: linear-gradient(45deg, #AB47BC, #8E24AA); opacity: 0.6;">
+            <div class="format-card" onclick="selectFormat('json')">
+                <div class="format-icon" style="background: linear-gradient(45deg, #AB47BC, #8E24AA);">
                     🔧
                 </div>
                 <h3>JSON Data</h3>
@@ -691,8 +513,8 @@
                 </ul>
             </div>
 
-            <div class="format-card limited" onclick="showPremiumAlert('CSV')">
-                <div class="format-icon" style="background: linear-gradient(45deg, #26A69A, #00ACC1); opacity: 0.6;">
+            <div class="format-card" onclick="selectFormat('csv')">
+                <div class="format-icon" style="background: linear-gradient(45deg, #26A69A, #00ACC1);">
                     📊
                 </div>
                 <h3>CSV Spreadsheet</h3>
@@ -706,96 +528,82 @@
             </div>
         </div>
 
-        <div class="guest-notice">
-            <h3>🚫 Keterbatasan Mode Tamu</h3>
-            <p>Dalam Mode Tamu, Anda hanya dapat menggunakan fitur terbatas:</p>
-            <ul>
-                <li>Hanya format Plain Text yang tersedia</li>
-                <li>Kualitas output standar (tidak bisa diubah)</li>
-                <li>Nama file default</li>
-                <li>Tidak ada riwayat download</li>
-                <li>Maksimal 3 download per hari</li>
-            </ul>
-            <p><strong>Upgrade ke akun premium untuk membuka semua fitur!</strong></p>
-        </div>
-
         <div class="custom-settings">
             <h3>Pengaturan Kustom</h3>
             <div class="settings-grid">
                 <div class="setting-item">
                     <label>Kualitas Output</label>
-                    <select id="quality" disabled>
-                        <option value="standard">Standar (Mode Tamu)</option>
+                    <select id="quality">
+                        <option value="high">Tinggi (Rekomendasi)</option>
+                        <option value="medium">Sedang</option>
+                        <option value="low">Rendah (Cepat)</option>
                     </select>
                 </div>
                 <div class="setting-item">
                     <label>Ukuran Font</label>
-                    <select id="fontSize" disabled>
-                        <option value="14">14pt (Default)</option>
+                    <select id="fontSize">
+                        <option value="12">12pt</option>
+                        <option value="14" selected>14pt (Default)</option>
+                        <option value="16">16pt</option>
+                        <option value="18">18pt</option>
                     </select>
                 </div>
                 <div class="setting-item">
                     <label>Margin</label>
-                    <select id="margin" disabled>
-                        <option value="normal">Normal (Default)</option>
+                    <select id="margin">
+                        <option value="narrow">Sempit</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="wide">Lebar</option>
                     </select>
                 </div>
                 <div class="setting-item">
                     <label>Nama File</label>
-                    <input type="text" id="fileName" value="amire-ai-guest-output" readonly>
+                    <input type="text" id="fileName" placeholder="Masukkan nama file..." value="amire-ai-output">
                 </div>
             </div>
         </div>
 
         <div class="action-buttons">
-            <button class="btn btn-primary" onclick="generateGuestOutput()">
-                📄 Generate Text Output
+            <button class="btn btn-primary" onclick="generateOutput()">
+                🚀 Generate Output
             </button>
-            <button class="btn btn-upgrade" onclick="showUpgrade()">
-                ✨ Upgrade Premium
+            <button class="btn btn-secondary" onclick="resetSettings()">
+                🔄 Reset Pengaturan
             </button>
         </div>
     </main>
 
     <script>
-        let selectedFormat = 'txt'; // Default untuk mode tamu
-        let guestDownloadCount = parseInt(localStorage.getItem('guestDownloads') || '0');
+        let selectedFormat = '';
 
         function goBack() {
             window.history.back();
         }
 
         function selectFormat(format) {
-            if (format === 'txt') {
-                // Remove previous selection
-                document.querySelectorAll('.format-card.free').forEach(card => {
-                    card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                    card.style.background = 'rgba(255, 255, 255, 0.1)';
-                });
+            // Remove previous selection
+            document.querySelectorAll('.format-card').forEach(card => {
+                card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                card.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
 
-                // Highlight selected format
-                event.currentTarget.style.borderColor = '#667eea';
-                event.currentTarget.style.background = 'rgba(102, 126, 234, 0.2)';
-                
-                selectedFormat = format;
-            }
+            // Highlight selected format
+            event.currentTarget.style.borderColor = '#667eea';
+            event.currentTarget.style.background = 'rgba(102, 126, 234, 0.2)';
+            
+            selectedFormat = format;
         }
 
-        function showPremiumAlert(formatName) {
-            alert(`🔒 Format ${formatName} adalah fitur premium!\n\n✨ Upgrade ke akun premium untuk:\n• Akses semua format output\n• Kualitas tinggi\n• Pengaturan kustom\n• Download unlimited\n• Riwayat file\n\nKlik "Upgrade Premium" untuk mulai!`);
-        }
-
-        function generateGuestOutput() {
-            // Check download limit
-            if (guestDownloadCount >= 3) {
-                alert('❌ Batas download harian untuk Mode Tamu telah tercapai!\n\n🔒 Anda telah menggunakan 3/3 download gratis hari ini.\n\n✨ Upgrade ke premium untuk download unlimited!');
-                return;
-            }
-
+        function generateOutput() {
             if (!selectedFormat) {
-                alert('Silakan pilih format Plain Text terlebih dahulu!');
+                alert('Silakan pilih format output terlebih dahulu!');
                 return;
             }
+
+            const quality = document.getElementById('quality').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const margin = document.getElementById('margin').value;
+            const fileName = document.getElementById('fileName').value;
 
             // Simulate generation process
             const btn = event.currentTarget;
@@ -804,43 +612,37 @@
             btn.disabled = true;
 
             setTimeout(() => {
-                guestDownloadCount++;
-                localStorage.setItem('guestDownloads', guestDownloadCount.toString());
-                
-                const remaining = 3 - guestDownloadCount;
-                let message = `✅ Output berhasil digenerate!\n\nFormat: Plain Text\nNama File: amire-ai-guest-output.txt\n\n`;
-                
-                if (remaining > 0) {
-                    message += `📊 Sisa download hari ini: ${remaining}/3`;
-                } else {
-                    message += `⚠️ Batas download harian tercapai!\nUpgrade untuk download unlimited.`;
-                }
-                
-                alert(message);
+                alert(`Output berhasil digenerate!\n\nFormat: ${selectedFormat.toUpperCase()}\nKualitas: ${quality}\nNama File: ${fileName}.${selectedFormat}`);
                 btn.innerHTML = originalText;
                 btn.disabled = false;
-
-                // Update UI if limit reached
-                if (remaining === 0) {
-                    btn.innerHTML = '🚫 Batas Tercapai';
-                    btn.disabled = true;
-                    btn.style.opacity = '0.5';
-                }
-            }, 2000);
+            }, 3000);
         }
 
-        function showUpgrade() {
-            alert('✨ Upgrade ke Amire AI Premium!\n\n🎯 Fitur Premium:\n• Semua format output (PDF, Word, HTML, JSON, CSV)\n• Kualitas output tinggi\n• Pengaturan kustom lengkap\n• Download unlimited\n• Riwayat file & sinkronisasi\n• Dukungan prioritas\n• Tanpa iklan\n\n💰 Mulai dari Rp 99.000/bulan\n\n🚀 Daftar sekarang di amire.ai/premium');
+        function resetSettings() {
+            document.getElementById('quality').value = 'high';
+            document.getElementById('fontSize').value = '14';
+            document.getElementById('margin').value = 'normal';
+            document.getElementById('fileName').value = 'amire-ai-output';
+            
+            // Reset format selection
+            document.querySelectorAll('.format-card').forEach(card => {
+                card.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                card.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+            
+            selectedFormat = '';
         }
 
-        // Check daily reset
-        const today = new Date().toDateString();
-        const lastReset = localStorage.getItem('lastResetDate');
-        
-        if (lastReset !== today) {
-            localStorage.setItem('guestDownloads', '0');
-            localStorage.setItem('lastResetDate', today);
-            guestDownloadCount = 0;
-        }
-
-        // Initialize
+        // Add hover effects to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
