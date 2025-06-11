@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Recording - Amire AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background pattern */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        /* Main recording interface */
+        .recording-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 200px);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 0 30px;
+        }
+
+        .recording-status {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse-text 2s ease-in-out infinite;
+        }
+
+        .recording-subtitle {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+        }
+
+        /* Audio visualizer */
+        .audio-visualizer {
+            width: 300px;
+            height: 100px;
+            margin: 30px 0;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 4px;
+            position: relative;
+        }
+
+        .audio-bar {
+            width: 6px;
+            background: linear-gradient(to top, #667eea 0%, #764ba2 50%, #ff6b6b 100%);
+            border-radius: 3px;
+            animation: audioWave 1.5s ease-in-out infinite;
+            min-height: 10px;
+        }
+
+        .audio-bar:nth-child(1) { animation-delay: 0s; }
+        .audio-bar:nth-child(2) { animation-delay: 0.1s; }
+        .audio-bar:nth-child(3) { animation-delay: 0.2s; }
+        .audio-bar:nth-child(4) { animation-delay: 0.3s; }
+        .audio-bar:nth-child(5) { animation-delay: 0.4s; }
+        .audio-bar:nth-child(6) { animation-delay: 0.5s; }
+        .audio-bar:nth-child(7) { animation-delay: 0.4s; }
+        .audio-bar:nth-child(8) { animation-delay: 0.3s; }
+        .audio-bar:nth-child(9) { animation-delay: 0.2s; }
+        .audio-bar:nth-child(10) { animation-delay: 0.1s; }
+
+        /* Recording timer */
+        .recording-timer {
+            font-size: 32px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Control buttons */
+        .recording-controls {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            align-items: center;
+        }
+
+        .control-btn {
+            width: 70px;
+            height: 70px;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .stop-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .stop-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+        }
+
+        .pause-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .pause-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Recording pulse animation */
+        .recording-pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 50%;
+            animation: recordingPulse 2s ease-in-out infinite;
+        }
+
+        .recording-pulse::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 50%;
+            animation: recordingPulse 2s ease-in-out infinite 0.5s;
+        }
+
+        /* Waveform display */
+        .waveform-display {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 10;
+        }
+
+        .waveform-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .waveform-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .audio-level {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .waveform {
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waveform-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(102, 126, 234, 0.5) 25%, 
+                rgba(255, 107, 107, 0.8) 50%, 
+                rgba(102, 126, 234, 0.5) 75%, 
+                transparent 100%);
+            transform: translateY(-50%);
+            animation: waveformMove 3s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes audioWave {
+            0%, 100% { height: 10px; }
+            50% { height: 80px; }
+        }
+
+        @keyframes recordingPulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes waveformMove {
+            0% { transform: translateY(-50%) translateX(-100%); }
+            100% { transform: translateY(-50%) translateX(100%); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+            
+            .recording-container {
+                padding: 0 20px;
+            }
+            
+            .audio-visualizer {
+                width: 250px;
+            }
+            
+            .recording-controls {
+                gap: 20px;
+            }
+            
+            .control-btn {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .waveform-display {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">A</div>
+            <span class="logo-text">Amire AI</span>
+        </div>
+        
+        <button class="close-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+    </header>
+
+    <main class="recording-container">
+        <div class="recording-pulse"></div>
+        
+        <h2 class="recording-status">🎤 Sedang Merekam</h2>
+        <p class="recording-subtitle">Mulai berbicara, Amire AI mendengarkan Anda</p>
+        
+        <div class="audio-visualizer">
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+        </div>
+        
+        <div class="recording-timer" id="timer">00:00</div>
+        
+        <div class="recording-controls">
+            <button class="control-btn pause-btn" title="Jeda">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <rect x="6" y="4" width="4" height="16"></rect>
+                    <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+            </button>
+            
+            <button class="control-btn stop-btn" title="Berhenti">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <rect x="6" y="6" width="12" height="12"></rect>
+                </svg>
+            </button>
+            
+            <button class="control-btn send-btn" title="Kirim">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </main>
+
+    <div class="waveform-display">
+        <div class="waveform-info">
+            <span class="waveform-title">Audio Input</span>
+            <span class="audio-level">Level: 75%</span>
+        </div>
+        <div class="waveform">
+            <div class="waveform-line"></div>
+        </div>
+    </div>
+
+    <script>
+        let startTime = Date.now();
+        let isRecording = true;
+        let isPaused = false;
+        
+        // Timer functionality
+        function updateTimer() {
+            if (isRecording && !isPaused) {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+        
+        setInterval(updateTimer, 1000);
+        
+        // Control button functionality
+        document.querySelector('.pause-btn').addEventListener('click', function() {
+            isPaused = !isPaused;
+            const recordingStatus = document.querySelector('.recording-status');
+            const audioVisualizer = document.querySelector('.audio-visualizer');
+            
+            if (isPaused) {
+                recordingStatus.innerHTML = '⏸️ Dijeda';
+                recordingStatus.style.background = 'linear-gradient(135deg, #ffd93d 0%, #ff8e53 100%)';
+                audioVisualizer.style.opacity = '0.3';
+                this.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <polygon points="5,3 19,12 5,21 5,3"></polygon>
+                    </svg>
+                `;
+            } else {
+                recordingStatus.innerHTML = '🎤 Sedang Merekam';
+                recordingStatus.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%)';
+                audioVisualizer.style.opacity = '1';
+                this.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <rect x="6" y="4" width="4" height="16"></rect>
+                        <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                `;
+            }
+        });
+        
+        document.querySelector('.stop-btn').addEventListener('click', function() {
+            isRecording = false;
+            document.querySelector('.recording-status').innerHTML = '⏹️ Perekaman Dihentikan';
+            document.querySelector('.recording-status').style.background = 'linear-gradient(135deg, #999 0%, #666 100%)';
+            document.querySelector('.audio-visualizer').style.opacity = '0.3';
+            
+            // Show completion message
+            setTimeout(() => {
+                alert('Perekaman selesai! Audio siap untuk diproses.');
+            }, 500);
+        });
+        
+        document.querySelector('.send-btn').addEventListener('click', function() {
+            isRecording = false;
+            
+            // Animation for sending
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    alert('Audio berhasil dikirim! Amire AI sedang memproses pesan suara Anda.');
+                }, 100);
+            }, 100);
+        });
+        
+        document.querySelector('.close-btn').addEventListener('click', function() {
+            if (confirm('Batalkan perekaman?')) {
+                isRecording = false;
+                // Navigate back or close recording interface
+                alert('Perekaman dibatalkan');
+            }
+        });
+        
+        // Simulate audio level changes
+        function updateAudioLevel() {
+            const level = Math.floor(Math.random() * 40) + 60;
+            document.querySelector('.audio-level').textContent = `Level: ${level}%`;
+        }
+        
+        setInterval(updateAudioLevel, 1000);
+        
+        // Add random variation to audio bars
+        function randomizeAudioBars() {
+            const bars = document.querySelectorAll('.audio-bar');
+            bars.forEach(bar => {
+                const randomHeight = Math.random() * 70 + 10;
+                bar.style.setProperty('--random-height', randomHeight + 'px');
+            });
+        }
+        
+        setInterval(randomizeAudioBars, 200);
+    </script>
+</body>
+</html>
